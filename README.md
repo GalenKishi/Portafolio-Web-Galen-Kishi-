@@ -26,10 +26,10 @@ Para este desarrollo elegí un stack robusto que garantiza escalabilidad:
 
 ---
 
-## 📸 Screenshots / Demo
+## 📸 ¿Quieres verlo?
 
 *(Opcional: Si tienes el link de Vercel, ponlo aquí)*
-🔗 [Ver Demo en Vivo](TU_LINK_DE_VERCEL_AQUI)
+🔗 [Ver Pagina Web ](TU_LINK_DE_VERCEL_AQUI)
 
 > [!TIP]
 > **¿Por qué Next.js?** Como desarrollador interactivo y de videojuegos, busco que mis webs tengan la misma fluidez que un motor gráfico. Next.js me permite lograr esa velocidad en el navegador.
