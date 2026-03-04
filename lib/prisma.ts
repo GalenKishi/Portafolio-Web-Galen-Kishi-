@@ -17,7 +17,15 @@ if (!connectionString) {
   );
 }
 
-const pool = new Pool({ connectionString });
+const shouldUseSsl =
+  connectionString.includes("supabase.co") ||
+  connectionString.includes("sslmode=require");
+
+const pool = new Pool({
+  connectionString,
+  ssl: shouldUseSsl ? { rejectUnauthorized: false } : undefined,
+  connectionTimeoutMillis: 15000,
+});
 const adapter = new PrismaPg(pool);
 
 export const prisma =
