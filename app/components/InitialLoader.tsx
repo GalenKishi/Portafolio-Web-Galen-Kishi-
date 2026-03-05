@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const SESSION_KEY = "portfolio_initial_loader_shown";
-const LOADER_DURATION_MS = 1700;
+const LOADER_DURATION_MS = 2500;
 const LOADER_TITLE = "PORTAFOLIO";
 const LOADER_TEXT = "Preparando experiencia...";
 

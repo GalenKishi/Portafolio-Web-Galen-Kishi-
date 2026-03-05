@@ -5,6 +5,7 @@ import HoverNumberRain from "./components/HoverNumberRain";
 import InitialLoader from "./components/InitialLoader";
 import Navbar from "./components/Navbar";
 import PageTransition from "./components/PageTransition";
+import ScrollReveal from "./components/ScrollReveal";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -66,6 +67,7 @@ export default function RootLayout({
         <CodeRain />
         <HoverNumberRain />
         <InitialLoader />
+        <ScrollReveal />
         <div className="relative z-10">
           <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
           <Navbar />

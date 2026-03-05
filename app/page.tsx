@@ -9,6 +9,7 @@ type ProyectoView = {
   titulo: string;
   descripcion: string;
   tecnologia: string;
+  proyectoUrl?: string | null;
   imagenUrl?: string | null;
 };
 
@@ -83,7 +84,7 @@ export default async function HomePage() {
               {tecnologias.map((tecnologia) => (
                 <span
                   key={tecnologia.id}
-                  className="rounded-full border border-slate-600 bg-slate-700 px-3 py-1 text-xs font-jersey-subtext"
+                  className="rounded-full border border-slate-600 bg-slate-700 px-3 py-1 text-xs font-jersey-subtext text-slate-100"
                 >
                   {tecnologia.icono ? `${tecnologia.icono} ` : ""}{tecnologia.nombre}
                 </span>
@@ -98,9 +99,20 @@ export default async function HomePage() {
             {proyectos.map((proy, index) => (
               <div
                 key={proy.id}
-                className="project-card section-card reveal"
+                className={`project-card section-card reveal relative ${proy.proyectoUrl ? "cursor-pointer" : ""}`}
                 style={{ animationDelay: `${240 + index * 90}ms` }}
               >
+                {proy.proyectoUrl ? (
+                  <a
+                    href={proy.proyectoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Abrir proyecto ${proy.titulo} en una pestaña nueva`}
+                    className="absolute inset-0 z-10 rounded"
+                  >
+                    <span className="sr-only">Abrir {proy.titulo}</span>
+                  </a>
+                ) : null}
                 {proy.imagenUrl ? (
                   <Image
                     src={proy.imagenUrl}

@@ -46,8 +46,20 @@ export default async function ProyectosPage() {
           {proyectos.map((proyecto) => (
             <article
               key={proyecto.id}
-              className="project-card section-card"
+              className={`project-card section-card relative ${proyecto.proyectoUrl ? "cursor-pointer" : ""}`}
             >
+              {proyecto.proyectoUrl ? (
+                <a
+                  href={proyecto.proyectoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Abrir proyecto ${proyecto.titulo} en una pestaña nueva`}
+                  className="absolute inset-0 z-10 rounded"
+                >
+                  <span className="sr-only">Abrir {proyecto.titulo}</span>
+                </a>
+              ) : null}
+
               {proyecto.imagenUrl ? (
                 <Image
                   src={proyecto.imagenUrl}
@@ -68,7 +80,7 @@ export default async function ProyectosPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Ver proyecto ${proyecto.titulo} en una pestaña nueva`}
-                  className="inline-block mt-5 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded"
+                  className="relative z-20 inline-block mt-5 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-4 py-2 rounded"
                 >
                   Ver proyecto
                 </a>

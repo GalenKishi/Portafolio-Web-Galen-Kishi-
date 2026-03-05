@@ -176,11 +176,11 @@ export default async function AdminPage() {
               <select
                 name="nivel"
                 defaultValue="intermedio"
-                className="bg-slate-700 text-white p-2 rounded border border-slate-600  placeholder:text-slate-300 placeholder:opacity-100 focus:outline-none focus:border-blue-500">
-                <option value="principiante">Principiante</option>
-                <option value="intermedio">Intermedio</option>
-                <option value="avanzado">Avanzado</option>
-                <option value="experto">Experto</option>
+                className="bg-slate-700 text-slate-100 p-2 rounded border border-slate-600  placeholder:text-slate-300 placeholder:opacity-100 focus:outline-none focus:border-blue-500">
+                <option value="principiante" className="bg-slate-800 text-slate-100">Principiante</option>
+                <option value="intermedio" className="bg-slate-800 text-slate-100">Intermedio</option>
+                <option value="avanzado" className="bg-slate-800 text-slate-100">Avanzado</option>
+                <option value="experto" className="bg-slate-800 text-slate-100">Experto</option>
               </select>
               <input
                 name="icono"
@@ -208,11 +208,11 @@ export default async function AdminPage() {
                       className="bg-slate-700 text-white p-2 rounded border border-slate-600 text-sm"
                       required
                     />
-                    <select name="nivel" defaultValue={tech.nivel} className="bg-slate-700 text-white p-2 rounded border border-slate-600 text-sm">
-                      <option value="principiante">Principiante</option>
-                      <option value="intermedio">Intermedio</option>
-                      <option value="avanzado">Avanzado</option>
-                      <option value="experto">Experto</option>
+                    <select name="nivel" defaultValue={tech.nivel} className="bg-slate-700 text-slate-100 p-2 rounded border border-slate-600 text-sm">
+                      <option value="principiante" className="bg-slate-800 text-slate-100">Principiante</option>
+                      <option value="intermedio" className="bg-slate-800 text-slate-100">Intermedio</option>
+                      <option value="avanzado" className="bg-slate-800 text-slate-100">Avanzado</option>
+                      <option value="experto" className="bg-slate-800 text-slate-100">Experto</option>
                     </select>
                     <input
                       name="icono"

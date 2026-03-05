@@ -156,6 +156,19 @@ body {
 .page-enter > div > *:nth-child(5) { animation-delay: 390ms; }
 .page-enter > div > *:nth-child(6) { animation-delay: 470ms; }
 
+.page-enter .section-card > * {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: cardContentSlideDown 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.page-enter .section-card > *:nth-child(1) { animation-delay: 130ms; }
+.page-enter .section-card > *:nth-child(2) { animation-delay: 190ms; }
+.page-enter .section-card > *:nth-child(3) { animation-delay: 250ms; }
+.page-enter .section-card > *:nth-child(4) { animation-delay: 310ms; }
+.page-enter .section-card > *:nth-child(5) { animation-delay: 370ms; }
+.page-enter .section-card > *:nth-child(6) { animation-delay: 430ms; }
+
 .hamburger-icon {
   width: 1.1rem;
   height: 1rem;
@@ -313,6 +326,17 @@ body {
   }
 }
 
+@keyframes cardContentSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes hoverNumberFall {
   0% {
     opacity: 0;
@@ -392,6 +416,12 @@ body {
   }
 
   .page-enter > div > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .page-enter .section-card > * {
     animation: none;
     opacity: 1;
     transform: none;
