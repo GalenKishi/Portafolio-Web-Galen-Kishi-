@@ -11,27 +11,32 @@ const connectionString =
   process.env.POSTGRES_PRISMA_URL ??
   process.env.POSTGRES_URL;
 
+const shouldUseSsl = Boolean(
+  connectionString &&
+    (connectionString.includes("supabase.co") ||
+      connectionString.includes("sslmode=require"))
+);
+
+const pool = connectionString
+  ? new Pool({
+      connectionString,
+      ssl: shouldUseSsl ? { rejectUnauthorized: false } : undefined,
+      connectionTimeoutMillis: 15000,
+    })
+  : null;
+
+const adapter = pool ? new PrismaPg(pool) : null;
+
 if (!connectionString) {
-  throw new Error(
-    "No hay URL de base de datos. Define DATABASE_URL o POSTGRES_PRISMA_URL en variables de entorno."
+  console.warn(
+    "[prisma] No se encontró DATABASE_URL/POSTGRES_PRISMA_URL/POSTGRES_URL. La app iniciará, pero las consultas a BD fallarán hasta configurar variables de entorno."
   );
 }
-
-const shouldUseSsl =
-  connectionString.includes("supabase.co") ||
-  connectionString.includes("sslmode=require");
-
-const pool = new Pool({
-  connectionString,
-  ssl: shouldUseSsl ? { rejectUnauthorized: false } : undefined,
-  connectionTimeoutMillis: 15000,
-});
-const adapter = new PrismaPg(pool);
 
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
-    adapter,
+    ...(adapter ? { adapter } : {}),
     log: ["error", "warn"],
   });
 

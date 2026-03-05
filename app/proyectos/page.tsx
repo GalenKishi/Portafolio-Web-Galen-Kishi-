@@ -14,16 +14,29 @@ type ProyectoPublico = {
 };
 
 export default async function ProyectosPage() {
-  const proyectos = (await prisma.proyecto.findMany({
-    where: { publicado: true },
-    orderBy: { id: "desc" },
-  } as never)) as unknown as ProyectoPublico[];
+  let proyectos: ProyectoPublico[] = [];
+  let hasDataError = false;
+
+  try {
+    proyectos = (await prisma.proyecto.findMany({
+      where: { publicado: true },
+      orderBy: { id: "desc" },
+    } as never)) as unknown as ProyectoPublico[];
+  } catch (error) {
+    hasDataError = true;
+    console.error("Error cargando proyectos:", error);
+  }
 
   return (
     <main id="main-content" tabIndex={-1} className="page-enter pt-20 sm:pt-24 min-h-screen px-4 sm:px-6 md:px-8 pb-10 sm:pb-12">
       <div className="max-w-5xl mx-auto">
         <header className="mb-10 section-card">
           <h1 id="proyectos-titulo" className="font-pixel-title text-3xl sm:text-4xl font-bold text-white mb-3">Mis Proyectos</h1>
+          {hasDataError ? (
+            <p role="status" className="font-jersey-subtext text-sm text-amber-300 mb-3">
+              No fue posible cargar proyectos desde la base de datos.
+            </p>
+          ) : null}
           <p className="font-jersey-subtext text-base sm:text-lg text-slate-300">
             Aquí se muestran los proyectos que he realizado, con su descripción, imagen y enlace directo.
           </p>

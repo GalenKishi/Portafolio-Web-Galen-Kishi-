@@ -13,19 +13,29 @@ type ProyectoView = {
 };
 
 export default async function HomePage() {
-  const proyectos = (await prisma.proyecto.findMany({
-    where: { publicado: true },
-    orderBy: { id: "desc" },
-    take: 4,
-  } as never)) as ProyectoView[];
+  let proyectos: ProyectoView[] = [];
+  let totalPublicados = 0;
+  let tecnologias: { id: number; nombre: string; nivel?: string; icono?: string }[] = [];
+  let hasDataError = false;
 
-  const totalPublicados = await prisma.proyecto.count({
-    where: { publicado: true },
-  } as never);
+  try {
+    proyectos = (await prisma.proyecto.findMany({
+      where: { publicado: true },
+      orderBy: { id: "desc" },
+      take: 4,
+    } as never)) as ProyectoView[];
 
-  const tecnologias = (await prisma.tecnologia.findMany({
-    orderBy: { id: "asc" },
-  } as never)) as { id: number; nombre: string; nivel?: string; icono?: string }[];
+    totalPublicados = await prisma.proyecto.count({
+      where: { publicado: true },
+    } as never);
+
+    tecnologias = (await prisma.tecnologia.findMany({
+      orderBy: { id: "asc" },
+    } as never)) as { id: number; nombre: string; nivel?: string; icono?: string }[];
+  } catch (error) {
+    hasDataError = true;
+    console.error("Error cargando datos de inicio:", error);
+  }
 
   const resumenProyecto = (texto: string) =>
     texto.length > 120 ? `${texto.slice(0, 120).trim()}...` : texto;
@@ -37,6 +47,11 @@ export default async function HomePage() {
           <h1 id="inicio-resumen" className="font-pixel-title text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight">
             Desarrollador de Paginas Web y Programador de Videojuegos.
           </h1>
+          {hasDataError ? (
+            <p role="status" className="font-jersey-subtext text-sm text-amber-300 mb-4">
+              No se pudieron cargar datos dinámicos en este momento.
+            </p>
+          ) : null}
           <p className="font-jersey-subtext text-base sm:text-lg text-slate-300 mb-5 sm:mb-6">
             Este inicio es un resumen de mi perfil, las tecnologías que manejo y una vista rápida de mis proyectos publicados.
           </p>

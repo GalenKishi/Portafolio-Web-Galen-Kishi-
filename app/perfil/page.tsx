@@ -13,20 +13,34 @@ type ProyectoPerfil = {
 };
 
 export default async function PerfilPage() {
-  const proyectos = (await prisma.proyecto.findMany({
-    where: { publicado: true },
-    orderBy: { id: "desc" },
-  } as never)) as ProyectoPerfil[];
+  let proyectos: ProyectoPerfil[] = [];
+  let tecnologias: { id: number; nombre: string; nivel?: string; icono?: string }[] = [];
+  let hasDataError = false;
 
-  const tecnologias = (await prisma.tecnologia.findMany({
-    orderBy: { id: "asc" },
-  } as never)) as { id: number; nombre: string; nivel?: string; icono?: string }[];
+  try {
+    proyectos = (await prisma.proyecto.findMany({
+      where: { publicado: true },
+      orderBy: { id: "desc" },
+    } as never)) as ProyectoPerfil[];
+
+    tecnologias = (await prisma.tecnologia.findMany({
+      orderBy: { id: "asc" },
+    } as never)) as { id: number; nombre: string; nivel?: string; icono?: string }[];
+  } catch (error) {
+    hasDataError = true;
+    console.error("Error cargando perfil:", error);
+  }
 
   return (
     <main id="main-content" tabIndex={-1} className="page-enter pt-20 sm:pt-24 min-h-screen px-4 sm:px-6 md:px-8 pb-10 sm:pb-12">
       <div className="max-w-5xl mx-auto">
         <header className="mb-10 section-card">
           <h1 id="perfil-titulo" className="font-pixel-title text-3xl sm:text-4xl font-bold text-white">Profesional</h1>
+          {hasDataError ? (
+            <p role="status" className="font-jersey-subtext text-sm text-amber-300 mt-3">
+              Datos dinámicos temporalmente no disponibles.
+            </p>
+          ) : null}
           <p className="font-jersey-subtext text-base sm:text-lg text-slate-300 mt-3">
             Saludos y bienvenido a mi perfil profesional. Aquí encontrarás información detallada sobre mis habilidades, experiencia, proyectos y formación académica. Mi enfoque es el desarrollo de páginas web completas y la programación de videojuegos, combinando conocimientos técnicos con creatividad para construir soluciones digitales efectivas. Explora las secciones para conocer más sobre mi trayectoria, las tecnologías que manejo y los proyectos que he realizado. Si estás interesado en colaborar o tienes alguna oportunidad en mente, no dudes en contactarme a través de la sección de contacto. ¡Gracias por visitar mi perfil!
           </p>
