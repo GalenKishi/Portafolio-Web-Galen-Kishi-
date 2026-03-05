@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/session";
 import Image from "next/image";
 import ImageDropInput from "../components/ImageDropInput";
+import UploadSubmitButton from "../components/UploadSubmitButton";
 import {
     crearProyecto,
     editarProyecto,
@@ -73,12 +74,11 @@ export default async function AdminPage() {
               className="bg-slate-700 text-white p-2 rounded border border-slate-600 focus:outline-none focus:border-blue-500 placeholder:text-slate-300 placeholder:opacity-100"
             />
             <ImageDropInput />
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded transition-colors"
-            >
-              Guardar
-            </button>
+            <UploadSubmitButton
+              idleLabel="Guardar"
+              pendingLabel="Cargando imagen..."
+              className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+            />
           </div>
         </form>
 
@@ -128,12 +128,11 @@ export default async function AdminPage() {
                   accept="image/*"
                   className="text-sm text-slate-300"
                 />
-                <button
-                  type="submit"
-                  className="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 rounded"
-                >
-                  Guardar cambios
-                </button>
+                <UploadSubmitButton
+                  idleLabel="Guardar cambios"
+                  pendingLabel="Cargando imagen..."
+                  className="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 rounded disabled:opacity-70 disabled:cursor-not-allowed"
+                />
               </form>
 
               <div className="mt-4 flex flex-wrap gap-3">

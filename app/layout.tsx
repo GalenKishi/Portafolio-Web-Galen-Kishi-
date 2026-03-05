@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Jersey_10, Pixelify_Sans } from "next/font/google";
 import CodeRain from "./components/CodeRain";
 import HoverNumberRain from "./components/HoverNumberRain";
+import InitialLoader from "./components/InitialLoader";
 import Navbar from "./components/Navbar";
 import PageTransition from "./components/PageTransition";
 import "./globals.css";
@@ -64,6 +65,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${pixelifySans.variable} ${jersey10.variable} antialiased bg-slate-950 text-white relative overflow-x-hidden`}>
         <CodeRain />
         <HoverNumberRain />
+        <InitialLoader />
         <div className="relative z-10">
           <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
           <Navbar />
